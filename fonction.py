@@ -13,9 +13,15 @@ def cleen (files_names):
 # division des mot en caractère
         for val in F:
             Z = []
-            v = list(val)
-            Z.append(v)
-# vérification des caractère
+            Z.append(val)
+            print(Z,end='')
+
+# vérification des caractèr
             for val in Z:
+                print(val)
                 caract = ord(val)
                 if caract <= 90 and caract >= 65:
+                    caract =+ 32
+                    caract = chr(caract)
+                    with open('./clened/{}'.format(vil), 'w', encoding="utf-8") as f1:
+                        f1.write(caract)
