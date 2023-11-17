@@ -1,7 +1,7 @@
 from fonction import *
-# permet d'avoir la liste des fichier
+# Permet d'avoir la liste des fichiers
 directory = "./speeches"
 files_names = list_of_files(directory, "txt")
 
-#netoyage
-cleen(files_names)
+# Nettoyage des fichiers .txt
+cleaned(files_names)
