@@ -46,7 +46,7 @@ def cleaned (files_names):
                         elif l_ascii == 251 or l_ascii == 249:
                             f2.write('u')
 
-                        # pour les espace tiret et apostroph
+                        # pour les ' ' '-' et "'"
                         elif lettre == " " or lettre == "-" or lettre == "'" :
                             f2.write(" ")
                         # pour la pnctuation
