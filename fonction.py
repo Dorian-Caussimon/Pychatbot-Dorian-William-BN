@@ -1,6 +1,5 @@
 import os
-#
-# Liste pour les ponctuation
+# Liste des ponctuations
 ponctuation = ["," , "." , "!" , ":" , "?", ";"]
 
 def list_of_files(directory, extension):
@@ -12,44 +11,47 @@ def list_of_files(directory, extension):
 
 def cleaned (files_names):
     for nom in files_names:
-        # ouvre le ficher texte a nétoyer
+        # Ouvre les fichers .txt à nettoyer
         with open('./speeches/{}'.format(nom), 'r', encoding="utf-8") as f1:
             F = f1.readlines()
 
-            # crée le nouveaux ficher pour le texte netoyer
+            # Nouveau fichier "cleaned" pour les .txt traités
             with open('./cleaned/{}'.format(nom), 'w', encoding="utf-8") as f2:
 
-                # divise les txt en ligne
+                # Divise les .txt en lignes
                 for ligne in F:
 
-                    # divise les ligne en lettre
+                    # Divise les lignes en lettres
                     for lettre in ligne:
                         l_ascii = ord(lettre)
 
-                        # majuscule --> minuscule
+                        # Converti les majuscules en miniscules
                         if l_ascii >= 65 and l_ascii <= 90:
                             l_ascii += 32
                             new_lettre = chr(l_ascii)
                             f2.write(new_lettre)
-                        # pour les minuscule
+
+                        # Miniscules
                         elif l_ascii >=97 and l_ascii <= 122:
                             f2.write(lettre)
-                        # cas particuler pour les è ; é ; ê
+
+                        # Cas particulier  (è ; é ; ê)
                         elif l_ascii >= 232 and l_ascii <= 234:
                             f2.write('e')
 
-                        # cas particulier â et à
+                        # Cas particulier (â ; à)
                         elif l_ascii == 224 or l_ascii == 226:
                             f2.write('a')
 
-                        # cas particulier û et ù
+                        # Cas particulier (û ; ù)
                         elif l_ascii == 251 or l_ascii == 249:
                             f2.write('u')
 
-                        # pour les ' ' '-' et "'"
+                        # Cas particulier (" " ; "-" ; "'")
                         elif lettre == " " or lettre == "-" or lettre == "'" :
                             f2.write(" ")
-                        # pour la pnctuation
+
+                        # Ponctuations
                         else:
                             for ponct in ponctuation:
                                 if ponct == lettre:
