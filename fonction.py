@@ -84,9 +84,11 @@ def cleaned (files_names):
 #TF
 def TF (files_names):
     for i in range(len(files_names)):
+
         # Ouvre le fichier "cleaned" pour le calcul du TF
         with open('./cleaned/{}'.format(files_names[i]), 'r', encoding="utf-8") as f:
             contenu = f.read()
+
             # Compte la fréquence de chaque mot
             cptTF = {}
             liste_mots = contenu.split()
@@ -95,6 +97,8 @@ def TF (files_names):
                     cptTF[mot] = 1
                 else:
                     cptTF[mot] += 1
+
+            # ouverture du dico pour ranger les valeur TF trouver
             for mot, val in cptTF.items():
                 dico_list['dico{}'.format(i+1)][mot] = val
     return
