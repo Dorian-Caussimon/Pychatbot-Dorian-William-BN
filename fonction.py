@@ -85,7 +85,7 @@ def TF (files_names):
             motTot = len(mots)
             tf = {}
             for mot, cpt in cptTF.items():
-                tf[mot] = (cpt)
+                tf[mot] = (cpt / motTot)
 
             # Affiche les résultats du TF
             print("TF du fichier {} :".format(nom))
