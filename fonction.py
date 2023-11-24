@@ -47,9 +47,13 @@ def cleaned (files_names):
                         elif l_ascii == 251 or l_ascii == 249:
                             f2.write('u')
 
-                        # Cas particulier (" " ; "-" ; "'")
-                        elif lettre == " " or lettre == "-" or lettre == "'" :
+                        # Cas particulier (" " ; "-")
+                        elif lettre == " " or lettre == "-":
                             f2.write(" ")
+
+                        # Cas particulier ("'")
+                        elif lettre == "'":
+                            f2.write("e")
 
                         # Ponctuations
                         else:
