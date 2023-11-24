@@ -53,7 +53,7 @@ def cleaned (files_names):
 
                         # Cas particulier ("'")
                         elif lettre == "'":
-                            f2.write("e")
+                            f2.write("e ")
 
                         # Ponctuations
                         else:
