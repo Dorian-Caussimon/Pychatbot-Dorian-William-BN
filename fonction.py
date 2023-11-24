@@ -1,7 +1,23 @@
 import os
 # Liste des ponctuations
-ponctuation = ["," , "." , "!" , ":" , "?", ";"]
+ponctuation = [",", ".", "!", ":", "?", ";"]
 
+Chirac1 = {}
+Chirac2 = {}
+Giscard_dEstaing = {}
+Holland = {}
+Macron = {}
+Mitterrand = {}
+Mitterrand2 = {}
+Sarkozy = {}
+dico_list = {'dico1': Chirac1,
+             'dico2': Chirac2,
+             'dico3': Giscard_dEstaing,
+             'dico4': Holland,
+             'dico5': Macron,
+             'dico6': Mitterrand,
+             'dico7': Mitterrand2,
+             'dico8': Sarkozy}
 def list_of_files(directory, extension):
     files_names = []
     for filename in os.listdir(directory):
@@ -67,28 +83,18 @@ def cleaned (files_names):
                     f2.write("\n")
 #TF
 def TF (files_names):
-    for nom in files_names:
+    for i in range(len(files_names)):
         # Ouvre le fichier "cleaned" pour le calcul du TF
-        with open('./cleaned/{}'.format(nom), 'r', encoding="utf-8") as f:
+        with open('./cleaned/{}'.format(files_names[i]), 'r', encoding="utf-8") as f:
             contenu = f.read()
-
             # Compte la fréquence de chaque mot
             cptTF = {}
-            mots = contenu.split()
-            for mot in mots:
+            liste_mots = contenu.split()
+            for mot in liste_mots:
                 if mot not in cptTF:
                     cptTF[mot] = 1
                 else:
                     cptTF[mot] += 1
-
-            # Calcule le TF pour chaque mot
-            motTot = len(mots)
-            tf = {}
-            for mot, cpt in cptTF.items():
-                tf[mot] = (cpt)
-
-            # Affiche les résultats du TF
-            print("TF du fichier {} :".format(nom))
-            for mot, tf_val in tf.items():
-                print("{}: {}".format(mot, tf_val))
-            print("\n")
+            for mot, val in cptTF.items():
+                dico_list['dico{}'.format(i+1)][mot] = val
+    return
