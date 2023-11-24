@@ -8,7 +8,7 @@ def list_of_files(directory, extension):
         if filename.endswith(extension):
             files_names.append(filename)
     return files_names
-
+#Clean
 def cleaned (files_names):
     for nom in files_names:
         # Ouvre les fichers .txt à nettoyer
@@ -47,6 +47,10 @@ def cleaned (files_names):
                         elif l_ascii == 251 or l_ascii == 249:
                             f2.write('u')
 
+                        # Cas particulier (ç)
+                        elif l_ascii == 231:
+                            f2.write('c')
+
                         # Cas particulier (" " ; "-")
                         elif lettre == " " or lettre == "-":
                             f2.write(" ")
@@ -61,3 +65,30 @@ def cleaned (files_names):
                                 if ponct == lettre:
                                     f2.write('')
                     f2.write("\n")
+#TF
+def TF (files_names):
+    for nom in files_names:
+        # Ouvre le fichier "cleaned" pour le calcul du TF
+        with open('./cleaned/{}'.format(nom), 'r', encoding="utf-8") as f:
+            contenu = f.read()
+
+            # Compte la fréquence de chaque mot
+            cptTF = {}
+            mots = contenu.split()
+            for mot in mots:
+                if mot not in cptTF:
+                    cptTF[mot] = 1
+                else:
+                    cptTF[mot] += 1
+
+            # Calcule le TF pour chaque mot
+            motTot = len(mots)
+            tf = {}
+            for mot, cpt in cptTF.items():
+                tf[mot] = (cpt)
+
+            # Affiche les résultats du TF
+            print("TF du fichier {} :".format(nom))
+            for mot, tf_val in tf.items():
+                print("{}: {}".format(mot, tf_val))
+            print("\n")

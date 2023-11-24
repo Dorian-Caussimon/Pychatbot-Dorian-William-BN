@@ -5,3 +5,6 @@ files_names = list_of_files(directory, "txt")
 
 # Nettoyage des fichiers .txt
 cleaned(files_names)
+
+# Recherche de la fréquence des mots dans le .txt
+TF(files_names)
