@@ -74,20 +74,19 @@ def TF (files_names):
 
             # Compte la fréquence de chaque mot
             cptTF = {}
-            mots = contenu.split()
-            for mot in mots:
+            liste_mots = contenu.split()
+            for mot in liste_mots:
                 if mot not in cptTF:
                     cptTF[mot] = 1
                 else:
                     cptTF[mot] += 1
 
             # Calcule le TF pour chaque mot
-            motTot = len(mots)
             tf = {}
             for mot, cpt in cptTF.items():
-                tf[mot] = (cpt / motTot)
+                tf[mot] = (cpt)
 
-            # Affiche les résultats du TF
+            # Affiche le TF de chaque mot
             print("TF du fichier {} :".format(nom))
             for mot, tf_val in tf.items():
                 print("{}: {}".format(mot, tf_val))
