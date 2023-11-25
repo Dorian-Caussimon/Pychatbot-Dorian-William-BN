@@ -3,10 +3,11 @@ import math
 # Liste des ponctuations
 ponctuation = [",", ".", "!", ":", "?", ";"]
 
+# Liste des dictionnaires
 Chirac1 = {}
 Chirac2 = {}
 Giscard_dEstaing = {}
-Holland = {}
+Hollande = {}
 Macron = {}
 Mitterrand = {}
 Mitterrand2 = {}
@@ -14,7 +15,7 @@ Sarkozy = {}
 dico_list = {'dico1': Chirac1,
              'dico2': Chirac2,
              'dico3': Giscard_dEstaing,
-             'dico4': Holland,
+             'dico4': Hollande,
              'dico5': Macron,
              'dico6': Mitterrand,
              'dico7': Mitterrand2,
@@ -85,29 +86,38 @@ def cleaned (files_names):
     return
 
 #TF
-
-def TF(chaine_de_caractere):
+def TF(contenu):
     cptTF = {}
-    liste_mots = chaine_de_caractere.split()
+    liste_mots = contenu.split()
     for mot in liste_mots:
-        if mot not in cptTF:
+        if mot not in cptTF: # Calcul la fréquence TF de chaque mot
             cptTF[mot] = 1
         else:
             cptTF[mot] += 1
-    return cptTF
+    return cptTF # Return la fréquence de chaque mot des .txt
+
+#IDF
 def IDF(files_names):
+    precptIDF = {}
     cptIDF = {}
     for val in files_names:
         with open('./cleaned/{}'.format(val), 'r', encoding="utf-8") as f:
             contenu = f.read()
-            cptTF = TF(contenu)
+            cptTF = TF(contenu) # Utilisation de la fonction TF pour le calcul de l'IDF
             for mot, val in cptTF.items():
-                cptIDF[mot] = math.log(1/val)
-    return print (cptIDF)
+                if mot not in precptIDF: # Nombre de .txt contenant chaque mot (1 à 8)
+                    precptIDF[mot] = 1
+                else:
+                    precptIDF[mot] += 1
+            for mot, val in precptIDF.items(): # Calcul l'IDF de chaque mot
+                cptIDF[mot] = math.log(val)
+    return cptIDF
 
+#TF-IDF
 
-
-def TF_IDF (files_names):
+"""
+#TF-IDF
+def TF_2 (files_names):
     for i in range(len(files_names)):
 
         # Ouvre le fichier "cleaned" pour le calcul du TF
@@ -122,7 +132,8 @@ def TF_IDF (files_names):
                 else:
                     cptTF[mot] += 1
 
-            # ouverture du dico pour ranger les valeur TF trouver
+            # Ouverture du dictionnaire pour ranger les valeurs TF trouvé
             for mot, val in cptTF.items():
                 dico_list['dico{}'.format(i+1)][mot] = val
     return
+"""
