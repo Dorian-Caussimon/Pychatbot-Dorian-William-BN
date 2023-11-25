@@ -110,7 +110,7 @@ def IDF(files_names):
                 else:
                     precptIDF[mot] += 1
             for mot, val in precptIDF.items(): # Calcul l'IDF de chaque mot
-                cptIDF[mot] = math.log(val)
+                cptIDF[mot] = math.log((8/val) + 1)
     return cptIDF
 
 #TF-IDF
