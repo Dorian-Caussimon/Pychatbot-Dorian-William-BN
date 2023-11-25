@@ -1,4 +1,5 @@
 import os
+import math
 # Liste des ponctuations
 ponctuation = [",", ".", "!", ":", "?", ";"]
 
@@ -81,14 +82,37 @@ def cleaned (files_names):
                                 if ponct == lettre:
                                     f2.write('')
                     f2.write("\n")
+    return
+
 #TF
-def TF (files_names):
+
+def TF(chaine_de_caractere):
+    cptTF = {}
+    liste_mots = chaine_de_caractere.split()
+    for mot in liste_mots:
+        if mot not in cptTF:
+            cptTF[mot] = 1
+        else:
+            cptTF[mot] += 1
+    return cptTF
+def IDF(files_names):
+    cptIDF = {}
+    for val in files_names:
+        with open('./cleaned/{}'.format(val), 'r', encoding="utf-8") as f:
+            contenu = f.read()
+            cptTF = TF(contenu)
+            for mot, val in cptTF.items():
+                cptIDF[mot] = math.log(1/val)
+    return print (cptIDF)
+
+
+
+def TF_IDF (files_names):
     for i in range(len(files_names)):
 
         # Ouvre le fichier "cleaned" pour le calcul du TF
         with open('./cleaned/{}'.format(files_names[i]), 'r', encoding="utf-8") as f:
             contenu = f.read()
-
             # Compte la fréquence de chaque mot
             cptTF = {}
             liste_mots = contenu.split()
