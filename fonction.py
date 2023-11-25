@@ -102,7 +102,7 @@ def IDF(files_names):
             contenu = f.read()
             cptTF = TF(contenu)
             for mot, val in cptTF.items():
-                cptIDF[mot] = math.log(val)
+                cptIDF[mot] = math.log(1/val)
     return print (cptIDF)
 
 
