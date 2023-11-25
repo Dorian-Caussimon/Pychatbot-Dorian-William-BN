@@ -7,6 +7,7 @@ files_names = list_of_files(directory,'txt')
 cleaned(files_names)
 
 # TF-IDF
-IDF(files_names)
 TF_IDF(files_names)
-print(Macron)
+
+# Utiliser "print(Nom_président)"
+print(Chirac1)

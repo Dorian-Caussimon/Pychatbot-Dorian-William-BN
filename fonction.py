@@ -114,14 +114,13 @@ def IDF(files_names):
     return cptIDF
 
 #TF-IDF
-
 def TF_IDF(files_name):
     cptIDF = IDF(files_name)
     for i in range (len(files_name)):
         with open('./cleaned/{}'.format(files_name[i]), 'r', encoding="utf-8") as f:
             contenu = f.read()
             cptTF = TF(contenu)
-            for mot, val in cptTF.items():
+            for mot, val in cptTF.items(): # Calcul de TF_IDF pour chaque mot
                 cptTF[mot] = cptIDF[mot] * cptTF[mot]
 
         for mot, val in cptTF.items():
