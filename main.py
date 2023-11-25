@@ -9,4 +9,4 @@ cleaned(files_names)
 # TF-IDF
 IDF(files_names)
 TF_IDF(files_names)
-print(Hollande)
+print(Macron)
