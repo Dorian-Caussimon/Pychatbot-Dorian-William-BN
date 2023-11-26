@@ -14,4 +14,4 @@ Instructions d'exécutions : Menu d'accès aux fonctionnalités
 1 - clean files
 2 - TF Term Frequency
 3 - IDF Inverse Document frequency
-4 - TF-IDF
+4 - Matrice TF-IDF
