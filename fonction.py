@@ -3,7 +3,6 @@ import math
 # Liste des ponctuations
 ponctuation = [",", ".", "!", ":", "?", ";"]
 
-"""
 # Liste des dictionnaires
 Chirac1 = {}
 Chirac2 = {}
@@ -21,7 +20,6 @@ dico_list = {'dico1': Chirac1,
              'dico6': Mitterrand,
              'dico7': Mitterrand2,
              'dico8': Sarkozy}
-"""
 def list_of_files(directory, extension):
     files_names = []
     for filename in os.listdir(directory):
@@ -114,7 +112,7 @@ def IDF(files_names):
                     precptIDF[mot] += 1
             for mot, val in precptIDF.items(): # Calcul l'IDF de chaque mot
                 cptIDF[mot] = math.log((8/val) + 1)
-    return cptIDF
+    return print(cptIDF)
 
 #TF-IDF
 def TF_IDF(files_name):
@@ -126,12 +124,14 @@ def TF_IDF(files_name):
             cptTF = TF(contenu)
             for mot, val in cptTF.items(): # Calcul de TF_IDF pour chaque mot
                 cptTF[mot] = math.floor(cptIDF[mot] * cptTF[mot])
+        for mot, val in cptTF.items():
+            dico_list['dico{}'.format(i + 1)][mot] = val
         cellule_matrice = []
         for mot, val in cptTF.items(): # Création de la prematrice TF IDF (nécessite une transposition)
             cellule_matrice.append(mot + " : " + str(val))
         prematrice_TF_IDF.append(cellule_matrice)
     matrice_TF_IDF = Transposition(prematrice_TF_IDF) # Transpose en utilisant la fonction créée
-    return print(matrice_TF_IDF)
+    return (matrice_TF_IDF, dico_list)
 
 def Transposition(matrice): # Pour transposer une matrice nécessite nb ligne == nb colonne
     longeur_max = max(len(ligne) for ligne in matrice) # Longueur max des lignes + ajustement de la matrice
