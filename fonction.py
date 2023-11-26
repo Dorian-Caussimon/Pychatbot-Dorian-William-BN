@@ -127,20 +127,15 @@ def TF_IDF(files_name):
             for mot, val in cptTF.items(): # Calcul de TF_IDF pour chaque mot
                 cptTF[mot] = math.floor(cptIDF[mot] * cptTF[mot])
         cellule_matrice = []
-        for mot, val in cptTF.items(): # Création de la prematrice TF IDF (nécessite encore une transposition)
+        for mot, val in cptTF.items(): # Création de la prematrice TF IDF (nécessite une transposition)
             cellule_matrice.append(mot + " : " + str(val))
         prematrice_TF_IDF.append(cellule_matrice)
-        # transpose ene utilisant la fonction crée
-    matrice_TF_IDF = Transposition(prematrice_TF_IDF)
-    # tu peut mettre un print ici pour voir
-    return matrice_TF_IDF
+    matrice_TF_IDF = Transposition(prematrice_TF_IDF) # Transpose en utilisant la fonction créée
+    return print(matrice_TF_IDF)
 
-def Transposition(matrice):
-    # N.B pour transposé une matrice il faut que le nombre de ligne soit egale au nombre de colone
-    # cherche la longeur max de toute les ligne
-    longeur_max = max(len(ligne) for ligne in matrice)
-    # ajuste la matrice pour la transposition
+def Transposition(matrice): # Pour transposer une matrice nécessite nb ligne == nb colonne
+    longeur_max = max(len(ligne) for ligne in matrice) # Longueur max des lignes + ajustement de la matrice
     matrice_d_ajustement = [ligne + [''] * (longeur_max - len(ligne)) for ligne in matrice]
-    # transpose la matrice
-    Transpo = [[matrice_d_ajustement[j][i] for j in range(len(matrice_d_ajustement))] for i in range (longeur_max)]
-    return Transpo
+    # Transpose la matrice
+    transpo = [[matrice_d_ajustement[j][i] for j in range(len(matrice_d_ajustement))] for i in range (longeur_max)]
+    return transpo
