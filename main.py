@@ -5,7 +5,9 @@ files_names = list_of_files(directory,'txt')
 
 # Nettoyage des .txt
 cleaned(files_names)
+# Matrice
 matrice_TF_IDF, dico_list = TF_IDF(files_names)
+
 # Menu d'accès aux fonctionnalités
 x = 0
 print("1 - clean files \n"
@@ -54,10 +56,13 @@ elif x == 2:
             elif d == 8:
                   print(Sarkozy)
 
+# Accès à l'IDF des .txt
 elif x == 3:
     IDF = IDF(files_names)
     for motidf, validf in IDF.items():
         print("mot : {} \n score IDF : {} \n ".format(motidf,validf))
+
+# Accès à la Matrice TF-IDF
 elif x == 4:
     for ligne in matrice_TF_IDF:
         print(ligne)
