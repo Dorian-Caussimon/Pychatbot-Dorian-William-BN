@@ -3,6 +3,7 @@ import math
 # Liste des ponctuations
 ponctuation = [",", ".", "!", ":", "?", ";"]
 
+"""
 # Liste des dictionnaires
 Chirac1 = {}
 Chirac2 = {}
@@ -20,12 +21,14 @@ dico_list = {'dico1': Chirac1,
              'dico6': Mitterrand,
              'dico7': Mitterrand2,
              'dico8': Sarkozy}
+"""
 def list_of_files(directory, extension):
     files_names = []
     for filename in os.listdir(directory):
         if filename.endswith(extension):
             files_names.append(filename)
     return files_names
+
 #Clean
 def cleaned (files_names):
     for nom in files_names:
@@ -116,36 +119,28 @@ def IDF(files_names):
 #TF-IDF
 def TF_IDF(files_name):
     cptIDF = IDF(files_name)
+    prematrice_TF_IDF = []
     for i in range (len(files_name)):
         with open('./cleaned/{}'.format(files_name[i]), 'r', encoding="utf-8") as f:
             contenu = f.read()
             cptTF = TF(contenu)
             for mot, val in cptTF.items(): # Calcul de TF_IDF pour chaque mot
-                cptTF[mot] = cptIDF[mot] * cptTF[mot]
+                cptTF[mot] = math.floor(cptIDF[mot] * cptTF[mot])
+        cellule_matrice = []
+        for mot, val in cptTF.items(): # Création de la prematrice TF IDF (nécessite encore une transposition)
+            cellule_matrice.append(mot + " : " + str(val))
+        prematrice_TF_IDF.append(cellule_matrice)
+        # transpose ene utilisant la fonction crée
+    matrice_TF_IDF = Transposition(prematrice_TF_IDF)
+    # tu peut mettre un print ici pour voir
+    return matrice_TF_IDF
 
-        for mot, val in cptTF.items():
-            dico_list['dico{}'.format(i + 1)][mot] = val
-    return
-
-"""
-#TF-IDF
-def TF_2 (files_names):
-    for i in range(len(files_names)):
-
-        # Ouvre le fichier "cleaned" pour le calcul du TF
-        with open('./cleaned/{}'.format(files_names[i]), 'r', encoding="utf-8") as f:
-            contenu = f.read()
-            # Compte la fréquence de chaque mot
-            cptTF = {}
-            liste_mots = contenu.split()
-            for mot in liste_mots:
-                if mot not in cptTF:
-                    cptTF[mot] = 1
-                else:
-                    cptTF[mot] += 1
-
-            # Ouverture du dictionnaire pour ranger les valeurs TF trouvé
-            for mot, val in cptTF.items():
-                dico_list['dico{}'.format(i+1)][mot] = val
-    return
-"""
+def Transposition(matrice):
+    # N.B pour transposé une matrice il faut que le nombre de ligne soit egale au nombre de colone
+    # cherche la longeur max de toute les ligne
+    longeur_max = max(len(ligne) for ligne in matrice)
+    # ajuste la matrice pour la transposition
+    matrice_d_ajustement = [ligne + [''] * (longeur_max - len(ligne)) for ligne in matrice]
+    # transpose la matrice
+    Transpo = [[matrice_d_ajustement[j][i] for j in range(len(matrice_d_ajustement))] for i in range (longeur_max)]
+    return Transpo

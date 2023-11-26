@@ -8,6 +8,3 @@ cleaned(files_names)
 
 # TF-IDF
 TF_IDF(files_names)
-
-# Utiliser "print(Nom_président)"
-print(Chirac1)
