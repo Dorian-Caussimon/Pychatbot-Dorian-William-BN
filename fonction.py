@@ -112,7 +112,7 @@ def IDF(files_names):
                     precptIDF[mot] += 1
             for mot, val in precptIDF.items(): # Calcul l'IDF de chaque mot
                 cptIDF[mot] = math.log((8/val) + 1)
-    return print(cptIDF)
+    return cptIDF
 
 #TF-IDF
 def TF_IDF(files_name):
@@ -122,14 +122,18 @@ def TF_IDF(files_name):
         with open('./cleaned/{}'.format(files_name[i]), 'r', encoding="utf-8") as f:
             contenu = f.read()
             cptTF = TF(contenu)
+
             for mot, val in cptTF.items(): # Calcul de TF_IDF pour chaque mot
                 cptTF[mot] = math.floor(cptIDF[mot] * cptTF[mot])
+
         for mot, val in cptTF.items():
             dico_list['dico{}'.format(i + 1)][mot] = val
+
         cellule_matrice = []
         for mot, val in cptTF.items(): # Création de la prematrice TF IDF (nécessite une transposition)
             cellule_matrice.append(mot + " : " + str(val))
         prematrice_TF_IDF.append(cellule_matrice)
+
     matrice_TF_IDF = Transposition(prematrice_TF_IDF) # Transpose en utilisant la fonction créée
     return (matrice_TF_IDF, dico_list)
 

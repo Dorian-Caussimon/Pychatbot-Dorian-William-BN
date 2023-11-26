@@ -5,13 +5,13 @@ files_names = list_of_files(directory,'txt')
 
 # Nettoyage des .txt
 cleaned(files_names)
-
+matrice_TF_IDF, dico_list = TF_IDF(files_names)
 # Menu d'accès aux fonctionnalités
 x = 0
 print("1 - clean files \n"
       "2 - TF Term Frequency \n"
       "3 - IDF Inverse Document frequency \n"
-      "4 - TF-IDF \n")
+      "4 - Matrice TF-IDF \n")
 while x <= 0 or x > 4:
       x = int(input("Enter the desired functionality number: "))
       if x <= 0 or x > 4:
@@ -55,4 +55,9 @@ elif x == 2:
                   print(Sarkozy)
 
 elif x == 3:
-      IDF(files_names)
+    IDF = IDF(files_names)
+    for motidf, validf in IDF.items():
+        print("mot : {} \n score IDF : {} \n ".format(motidf,validf))
+elif x == 4:
+    for ligne in matrice_TF_IDF:
+        print(ligne)
