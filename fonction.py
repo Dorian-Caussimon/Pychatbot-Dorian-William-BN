@@ -95,7 +95,7 @@ def TF(contenu):
             cptTF[mot] = 1
         else:
             cptTF[mot] += 1
-    return cptTF # Return la fréquence de chaque mot des .txt
+    return cptTF # Return la fréquence de chaque mot
 
 #IDF
 def IDF(files_names):
@@ -143,3 +143,58 @@ def Transposition(matrice): # Pour transposer une matrice nécessite nb ligne ==
     # Transpose la matrice
     transpo = [[matrice_d_ajustement[j][i] for j in range(len(matrice_d_ajustement))] for i in range (longeur_max)]
     return transpo
+
+def clean_question(question):
+    L = list(question)
+    if L [-1] != " " :
+        L.append(" ")
+    Q=[]
+    MOT = ""
+    for lettre in L:
+        l_ascii = ord(lettre)
+
+        # Converti les majuscules en miniscules
+        if l_ascii >= 65 and l_ascii <= 90:
+            l_ascii += 32
+            new_lettre = chr(l_ascii)
+            MOT += new_lettre
+
+        # Miniscules
+        elif l_ascii >= 97 and l_ascii <= 122:
+            MOT += lettre
+
+        # Cas particulier  (è ; é ; ê)
+        elif l_ascii >= 232 and l_ascii <= 234:
+            MOT += 'e'
+
+        # Cas particulier (â ; à)
+        elif l_ascii == 224 or l_ascii == 226:
+            MOT += 'a'
+
+        # Cas particulier (û ; ù)
+        elif l_ascii == 251 or l_ascii == 249:
+            MOT += 'u'
+
+        # Cas particulier (ç)
+        elif l_ascii == 231:
+            MOT += 'c'
+
+        # Cas particulier (" ")
+        elif lettre == " " or lettre == "":
+            Q.append(MOT)
+            MOT = ""
+
+        # Cas particulier ("'")
+        elif lettre == "'":
+            MOT += "e "
+
+        # Ponctuations
+        else:
+            for ponct in ponctuation:
+                if ponct == lettre:
+                    MOT += ''
+
+    # supprimer les doublon
+    Q = set(Q)
+    Q = list(Q)
+    return Q
