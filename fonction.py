@@ -145,6 +145,7 @@ def Transposition(matrice): # Pour transposer une matrice nécessite nb ligne ==
     transpo = [[matrice_d_ajustement[j][i] for j in range(len(matrice_d_ajustement))] for i in range (longeur_max)]
     return transpo
 
+#Tokenisation de la question
 def clean_question(question):
     L = list(question)
     if L [-1] != " " :
@@ -164,7 +165,7 @@ def clean_question(question):
         elif l_ascii >= 97 and l_ascii <= 122:
             MOT += lettre
 
-        # Cas particulier  (è ; é ; ê)
+        # Cas particulier (è ; é ; ê)
         elif l_ascii >= 232 and l_ascii <= 234:
             MOT += 'e'
 
@@ -195,7 +196,7 @@ def clean_question(question):
                 if ponct == lettre:
                     MOT += ''
 
-    # supprimer les doublon
-    Q = set(Q)
+    # Suppression des doublons
+    Q = set(Q) # Conversion en Set pour supprimer les doublons
     Q = list(Q)
-    return Q
+    return Q # Return la liste des mots de la question nettoyés
