@@ -6,10 +6,8 @@ files_names = list_of_files(directory,'txt')
 # Nettoyage des .txt
 cleaned(files_names)
 matrice_TF_IDF, dico_list = TF_IDF(files_names)
-'''
 # Menu d'accès aux fonctionnalités
 x = 0
-
 print("1 - clean files \n"
       "2 - TF Term Frequency \n"
       "3 - IDF Inverse Document frequency \n"
@@ -63,8 +61,3 @@ elif x == 3:
 elif x == 4:
     for ligne in matrice_TF_IDF:
         print(ligne)
-'''
-print('posé moi une question ?')
-question = str(input())
-Q = clean_question(question)
-print(Q)

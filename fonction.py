@@ -137,6 +137,7 @@ def TF_IDF(files_name):
     matrice_TF_IDF = Transposition(prematrice_TF_IDF) # Transpose en utilisant la fonction créée
     return (matrice_TF_IDF, dico_list)
 
+#Transposition Matrice
 def Transposition(matrice): # Pour transposer une matrice nécessite nb ligne == nb colonne
     longeur_max = max(len(ligne) for ligne in matrice) # Longueur max des lignes + ajustement de la matrice
     matrice_d_ajustement = [ligne + [''] * (longeur_max - len(ligne)) for ligne in matrice]
