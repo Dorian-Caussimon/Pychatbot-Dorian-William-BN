@@ -1,7 +1,5 @@
 import os
 import math
-#_______________________________________________________________________________________________________________________
-
 # Liste des ponctuations
 ponctuation = [",", ".", "!", ":", "?", ";"]
 
@@ -23,26 +21,20 @@ dico_list = {'dico1': Chirac1,
              'dico7': Mitterrand2,
              'dico8': Sarkozy}
 
-#_______________________________________________________________________________________________________________________
 
-# Fonction 'list_of_files' :
-#
+
+
 def list_of_files(directory, extension):
     files_names = []
     for filename in os.listdir(directory):
         if filename.endswith(extension):
             files_names.append(filename)
     return files_names
-
 # Permet d'avoir la liste des fichiers
 directory = "./speeches"
 files_names = list_of_files(directory,'txt')
 nb_de_fichier = len(files_names)
-
-#__________________________________________________Nettoyage____________________________________________________________
-
-# Fonction 'cleaned' :
-#
+#__________________________________________________________nettoyage__________________________________________________________
 def cleaned (files_names):
     for nom in files_names:
         # Ouvre les fichers .txt à nettoyer
@@ -107,10 +99,8 @@ def cleaned (files_names):
                     f2.write("\n")
     return
 
-#_________________________________________Création de la matrice TF-IDF_________________________________________________
-
-# Fonction 'TF' :
-#
+#__________________________________________________________Parti pour la création de la matrice TF-IDF__________________________________________________________
+#TF
 def TF(contenu):
     cptTF = {}
     liste_mots = contenu.split()
@@ -119,10 +109,9 @@ def TF(contenu):
             cptTF[mot] = 1
         else:
             cptTF[mot] += 1
-    return cptTF # Retourne la fréquence de chaque mot
+    return cptTF # Return la fréquence de chaque mot
 
-# Fonction 'IDF' :
-#
+#IDF
 def IDF(files_names):
     precptIDF = {}
     cptIDF = {}
@@ -135,12 +124,11 @@ def IDF(files_names):
                     precptIDF[mot] = 1
                 else:
                     precptIDF[mot] += 1
-            for mot, val in precptIDF.items(): # Calcule l'IDF de chaque mot
+            for mot, val in precptIDF.items(): # Calcul l'IDF de chaque mot
                 cptIDF[mot] = math.log((nb_de_fichier/val) + 1)
     return cptIDF
 
-# Fonction 'TF_IDF' :
-#
+#TF-IDF
 def TF_IDF(files_name):
     cptIDF = IDF(files_name)
     prematrice_TF_IDF = []
@@ -163,8 +151,7 @@ def TF_IDF(files_name):
     matrice_TF_IDF = Transposition(prematrice_TF_IDF) # Transpose en utilisant la fonction créée
     return (matrice_TF_IDF, dico_list)
 
-# Fonction 'Transposition' :
-#
+#Transposition Matrice
 def Transposition(matrice): # Pour transposer une matrice nécessite nb ligne == nb colonne
     longeur_max = max(len(ligne) for ligne in matrice) # Longueur max des lignes + ajustement de la matrice
     matrice_d_ajustement = [ligne + [''] * (longeur_max - len(ligne)) for ligne in matrice]
@@ -172,10 +159,9 @@ def Transposition(matrice): # Pour transposer une matrice nécessite nb ligne ==
     transpo = [[matrice_d_ajustement[j][i] for j in range(len(matrice_d_ajustement))] for i in range (longeur_max)]
     return transpo
 
-#___________________________________________Generation de la question___________________________________________________
+#__________________________________________________________Generation de la question__________________________________________________________
 
-# Fonction 'clean_question' :
-#
+# Nous donne la question netoyer et nous renvoie la liste de mot qu'elle compose
 def clean_question(question):
     L = list(question)
     if L [-1] != " " :
@@ -233,23 +219,23 @@ def clean_question(question):
                     MOT += ''
 
     # Suppression des doublons
-    Q = set(Q) # Conversion en Set() pour supprimer les doublons
+    Q = set(Q) # Conversion en Set pour supprimer les doublons
     Q = list(Q)
-    return Q # Retourne la liste des mots de la question nettoyés
+    return Q # Return la liste des mots de la question nettoy
 
-# Fonction 'comparaison_question' :
-#
-def comparaison_question(question):
+# recherche des mot de la question dans le corpus
+def comparaison_question(question): # recherche des mot de la question dans le corpus
     question_comparer = []
-    corpus = []
+    corpus = [] # pour avoir tout le corpus
     for nom in files_names:
         with open ('./cleaned/{}'.format(nom),'r') as f:
             doc = f.read()
             doc = doc.split()
             for mot in doc:
                 corpus.append(mot)
-    corpus = set(corpus) # Conversion en Set() pour supprimer les doublons
-    corpus = list(corpus)
+    corpus = set(corpus)
+    corpus = list(corpus) # enleve les doublon
+
     for mot in question :
         if mot in corpus:
             question_comparer.append(mot)
