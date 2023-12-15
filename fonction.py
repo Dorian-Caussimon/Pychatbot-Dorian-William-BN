@@ -77,7 +77,13 @@ def cleaned (files_names):
                         # Cas particulier ("'")
                         elif lettre == "'":
                             f2.write("e ")
-
+                        # Cas particulier ("ô")
+                        elif lettre == "ô":
+                            f2.write('o')
+                        # Cas particulier ('œ')
+                        elif lettre == 'œ':
+                            f2.write("o")
+                            f2.write('e')
                         # Ponctuations
                         else:
                             for ponct in ponctuation:
@@ -185,7 +191,13 @@ def clean_question(question):
         elif lettre == " " or lettre == "" or lettre == "-":
             Q.append(MOT)
             MOT = ""
-
+        # Cas particulier ("ô")
+        elif lettre == "ô":
+            MOT += 'o'
+        # Cas particulier ('œ')
+        elif lettre == 'œ'
+            MOT += "o"
+            MOT += 'e'
         # Cas particulier ("'")
         elif lettre == "'":
             MOT += "e "
