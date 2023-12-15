@@ -7,25 +7,26 @@ files_names = list_of_files(directory,'txt')
 cleaned(files_names)
 matrice_TF_IDF, dico_list = TF_IDF(files_names)
 
-'''
-# Menu d'accès aux fonctionnalités (Premier Dépôt)
+# Menu d'accès aux fonctionnalités (Premier Dépôt) : Choix de 1 à 5
 x = 0
 print("1 - clean files \n"
       "2 - TF Term Frequency \n"
       "3 - IDF Inverse Document frequency \n"
       "4 - Matrice TF-IDF \n"
       "5 - Poser une question \n")
+
+# Saisie sécurisée de l'utilisateur
 while x <= 0 or x > 5:
       x = int(input("Enter the desired functionality number: "))
       if x <= 0 or x > 5:
             print("This functionality does not exist.")
 
-# Nettoyage des .txt
+# Nettoyage des .txt via la fonction 'cleaned'
 if x == 1:
       cleaned(files_names)
       print("Files has been cleaned")
 
-# Accès au TF des .txt
+# Accès au TF des .txt via les dictionnaires
 elif x == 2:
       print("Dictionary 1: Chirac #1 \n"
             "Dictionary 2: Chirac #2 \n"
@@ -57,19 +58,21 @@ elif x == 2:
             elif d == 8:
                   print(Sarkozy)
 
+# Accès à l'IDF des .txt via la fonction 'IDF'
 elif x == 3:
     IDF = IDF(files_names)
     for motidf, validf in IDF.items():
         print("mot : {} \n score IDF : {} \n ".format(motidf,validf))
 
+# Accès à la matrice créée par la fonction 'TF_IDF'
 elif x == 4:
     for ligne in matrice_TF_IDF:
         print(ligne)
-'''
 
-
-print("Posez une question :")
-question = str(input())
-Q = clean_question(question)
-QC = comparaison_question(Q)
-print(QC)
+# Récupère la question posée par l'utilisateur
+elif x == 5:
+      print("Posez une question :")
+      question = str(input())
+      Q = clean_question(question)
+      QC = comparaison_question(Q)
+      print(QC)

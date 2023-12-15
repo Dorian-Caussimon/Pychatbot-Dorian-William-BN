@@ -1,4 +1,5 @@
 Equipe : KUANG William ; CAUSSIMON Dorian
+Groupe TD : L1 - BN 
 
 Dépôt Git : https://github.com/Tron626/Pychatbot-Dorian-William-BN
 
@@ -8,7 +9,7 @@ Fonctionalités principales :
   - Calcul IDF
   - Calcul TF-IDF
   - Matrice TF-IDF
-  - Tokenisation (Question posée par l'utilisateur)
+  - Question (Utilisateur)
 
 Instructions d'exécutions : Menu d'accès aux fonctionnalités
 -> Entrez le chiffre associé à la fonctionnalité :
