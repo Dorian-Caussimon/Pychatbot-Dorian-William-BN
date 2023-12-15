@@ -8,6 +8,7 @@ Fonctionalités principales :
   - Calcul IDF
   - Calcul TF-IDF
   - Matrice TF-IDF
+  - Tokenisation (Question posée par l'utilisateur)
 
 Instructions d'exécutions : Menu d'accès aux fonctionnalités
 -> Entrez le chiffre associé à la fonctionnalité :
@@ -15,3 +16,4 @@ Instructions d'exécutions : Menu d'accès aux fonctionnalités
 2 - TF Term Frequency
 3 - IDF Inverse Document frequency
 4 - Matrice TF-IDF
+5 - Poser une question

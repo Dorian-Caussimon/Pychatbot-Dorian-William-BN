@@ -181,8 +181,8 @@ def clean_question(question):
         elif l_ascii == 231:
             MOT += 'c'
 
-        # Cas particulier (" ")
-        elif lettre == " " or lettre == "":
+        # Cas particulier (" " ; "-")
+        elif lettre == " " or lettre == "" or lettre == "-":
             Q.append(MOT)
             MOT = ""
 

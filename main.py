@@ -7,16 +7,16 @@ files_names = list_of_files(directory,'txt')
 cleaned(files_names)
 matrice_TF_IDF, dico_list = TF_IDF(files_names)
 
-# Menu d'accès aux fonctionnalités
-'''
+# Menu d'accès aux fonctionnalités (Premier Dépôt)
 x = 0
 print("1 - clean files \n"
       "2 - TF Term Frequency \n"
       "3 - IDF Inverse Document frequency \n"
-      "4 - Matrice TF-IDF \n")
-while x <= 0 or x > 4:
+      "4 - Matrice TF-IDF \n"
+      "5 - Poser une question \n")
+while x <= 0 or x > 5:
       x = int(input("Enter the desired functionality number: "))
-      if x <= 0 or x > 4:
+      if x <= 0 or x > 5:
             print("This functionality does not exist.")
 
 # Nettoyage des .txt
@@ -60,13 +60,14 @@ elif x == 3:
     IDF = IDF(files_names)
     for motidf, validf in IDF.items():
         print("mot : {} \n score IDF : {} \n ".format(motidf,validf))
+
 elif x == 4:
     for ligne in matrice_TF_IDF:
         print(ligne)
-'''
 
 # Nettoyage de la question posée (Tokenisation)
-print("Posez une question :")
-question = str(input())
-Q = clean_question(question)
-print(Q)
+elif x == 5:
+    print("Posez une question :")
+    question = str(input())
+    Q = clean_question(question)
+    print(Q)
