@@ -20,14 +20,21 @@ dico_list = {'dico1': Chirac1,
              'dico6': Mitterrand,
              'dico7': Mitterrand2,
              'dico8': Sarkozy}
+
+
+
+
 def list_of_files(directory, extension):
     files_names = []
     for filename in os.listdir(directory):
         if filename.endswith(extension):
             files_names.append(filename)
     return files_names
-
-#Clean
+# Permet d'avoir la liste des fichiers
+directory = "./speeches"
+files_names = list_of_files(directory,'txt')
+nb_de_fichier = len(files_names)
+#__________________________________________________________nettoyage__________________________________________________________
 def cleaned (files_names):
     for nom in files_names:
         # Ouvre les fichers .txt à nettoyer
@@ -92,6 +99,7 @@ def cleaned (files_names):
                     f2.write("\n")
     return
 
+#__________________________________________________________Parti pour la création de la matrice TF-IDF__________________________________________________________
 #TF
 def TF(contenu):
     cptTF = {}
@@ -117,7 +125,7 @@ def IDF(files_names):
                 else:
                     precptIDF[mot] += 1
             for mot, val in precptIDF.items(): # Calcul l'IDF de chaque mot
-                cptIDF[mot] = math.log((8/val) + 1)
+                cptIDF[mot] = math.log((nb_de_fichier/val) + 1)
     return cptIDF
 
 #TF-IDF
@@ -130,7 +138,7 @@ def TF_IDF(files_name):
             cptTF = TF(contenu)
 
             for mot, val in cptTF.items(): # Calcul de TF_IDF pour chaque mot
-                cptTF[mot] = math.floor(cptIDF[mot] * cptTF[mot])
+                cptTF[mot] = round(cptIDF[mot] * cptTF[mot], 2 )
 
         for mot, val in cptTF.items():
             dico_list['dico{}'.format(i + 1)][mot] = val
@@ -151,7 +159,9 @@ def Transposition(matrice): # Pour transposer une matrice nécessite nb ligne ==
     transpo = [[matrice_d_ajustement[j][i] for j in range(len(matrice_d_ajustement))] for i in range (longeur_max)]
     return transpo
 
-#Tokenisation de la question
+#__________________________________________________________Generation de la question__________________________________________________________
+
+# Nous donne la question netoyer et nous renvoi la liste de mot qu'elle compose
 def clean_question(question):
     L = list(question)
     if L [-1] != " " :
@@ -195,7 +205,7 @@ def clean_question(question):
         elif lettre == "ô":
             MOT += 'o'
         # Cas particulier ('œ')
-        elif lettre == 'œ'
+        elif lettre == 'œ':
             MOT += "o"
             MOT += 'e'
         # Cas particulier ("'")
@@ -211,4 +221,22 @@ def clean_question(question):
     # Suppression des doublons
     Q = set(Q) # Conversion en Set pour supprimer les doublons
     Q = list(Q)
-    return Q # Return la liste des mots de la question nettoyés
+    return Q # Return la liste des mots de la question nettoy
+
+# recherche des mot de la question dans le corpus
+def comparaison_question(question): # recherche des mot de la question dans le corpus
+    question_comparer = []
+    corpus = [] # pour avoir tout le corpus
+    for nom in files_names:
+        with open ('./cleaned/{}'.format(nom),'r') as f:
+            doc = f.read()
+            doc = doc.split()
+            for mot in doc:
+                corpus.append(mot)
+    corpus = set(corpus)
+    corpus = list(corpus) # enleve les doublon
+
+    for mot in question :
+        if mot in corpus:
+            question_comparer.append(mot)
+    return question_comparer

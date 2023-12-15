@@ -7,6 +7,7 @@ files_names = list_of_files(directory,'txt')
 cleaned(files_names)
 matrice_TF_IDF, dico_list = TF_IDF(files_names)
 
+'''
 # Menu d'accès aux fonctionnalités (Premier Dépôt)
 x = 0
 print("1 - clean files \n"
@@ -64,10 +65,11 @@ elif x == 3:
 elif x == 4:
     for ligne in matrice_TF_IDF:
         print(ligne)
+'''
 
-# Nettoyage de la question posée (Tokenisation)
-elif x == 5:
-    print("Posez une question :")
-    question = str(input())
-    Q = clean_question(question)
-    print(Q)
+
+print("Posez une question :")
+question = str(input())
+Q = clean_question(question)
+QC = comparaison_question(Q)
+print(QC)
