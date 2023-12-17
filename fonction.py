@@ -123,7 +123,7 @@ def IDF(files_names):
                 else:
                     precptIDF[mot] += 1
             for mot, val in precptIDF.items(): # Calcul l'IDF de chaque mot
-                cptIDF[mot] = math.log((nb_de_fichier/val) + 1)
+                cptIDF[mot] = math.log((nb_de_fichier/val))
     return cptIDF
 
 #TF-IDF
@@ -152,7 +152,7 @@ def TF_IDF(files_name):
 #Transposition Matrice
 def Transposition(matrice): # Pour transposer une matrice nécessite nb ligne == nb colonne
     longeur_max = max(len(ligne) for ligne in matrice) # Longueur max des lignes + ajustement de la matrice
-    matrice_ajustement = [ligne + [''] * (longeur_max - len(ligne)) for ligne in matrice]
+    matrice_ajustement = [ligne + [0] * (longeur_max - len(ligne)) for ligne in matrice]
     # Transpose la matrice
     transpo = [[matrice_ajustement[j][i] for j in range(len(matrice_ajustement))] for i in range(longeur_max)]
     return transpo
@@ -234,14 +234,14 @@ def comparaison_question(question): # recherche des mot de la question dans le c
     return question_comparer
 
 def matrice_pour_comparaison(matrice):
-    new_matrice = Transposition(matrice)
-    longeur_matrice = len(new_matrice[0])
-    return new_matrice, longeur_matrice
+    nouvelle_matrice = Transposition(matrice)
+    longeur_matrice = len(nouvelle_matrice[0])
+    return nouvelle_matrice, longeur_matrice
 
 def question_TF_IDF(question_comparer,longeur_new_matrice):
-    # parti pour le TF de la question
     IDF_corpus = IDF(files_names)
     TF_IDF_question = {}
+    # parti pour le TF de la question
     for mot in question_comparer:
         if mot not in TF_IDF_question:
             TF_IDF_question[mot] = 1
@@ -258,13 +258,13 @@ def question_TF_IDF(question_comparer,longeur_new_matrice):
         vecteur_TF_IDF.append(round(val,2))
 
     if len(vecteur_TF_IDF) < longeur_new_matrice:
-        for w in range (longeur_new_matrice - len(vecteur_TF_IDF)):
+        for w in range(longeur_new_matrice - len(vecteur_TF_IDF)):
             vecteur_TF_IDF.append(0)
-    return vecteur_TF_IDF
+    return vecteur_TF_IDF, TF_IDF_question
 
 def produit_scalaire(A,B): # tout est dans le nom
     somme_vecteur = 0
-    for i in range (len(A)):
+    for i in range(len(A)):
         somme_vecteur += A[i] * B[i]
     return somme_vecteur
 
@@ -275,14 +275,23 @@ def norme_vecteur (A): # pareille
     norme = math.sqrt(somme)
     return norme
 
-def similarite (A,B):# pareille
-    sim = produit_scalaire(A,B)/norme_vecteur(A)*norme_vecteur(B)
-    return sim
+def similarite (A,B): #pareille
+    simil = produit_scalaire(A, B) / norme_vecteur(A) * norme_vecteur(B)
+    return simil
 
 def pertinence(matrice,vecteur): # utilisation de la fonction précédente pour calculer le doc le plus pertinent
+    docu = 0
     sim = 0
     for i in range (nb_de_fichier):
         if sim < similarite(matrice[i], vecteur):
             sim = similarite(matrice[i], vecteur)
-            doc = files_names[i]
-    return sim, doc
+            docu = files_names[i]
+    return sim, docu
+
+def MAX_TF_IDF(TFIDF_dico):
+    X = 0
+    for mot, val in TFIDF_dico.items():
+        if X < val:
+            X = val
+            M = mot
+    return M
