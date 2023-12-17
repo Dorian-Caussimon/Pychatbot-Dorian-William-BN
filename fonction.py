@@ -1,5 +1,11 @@
+# "My first chatBot" - Projet semestriel TI101 (Programmation Python)
+# [L1 - BN]
+# KUANG William - CAUSSIMON Dorian
+# Fichier function.py : Contient les fonctionnalités réalisées
+
 import os
 import math
+
 # Liste des ponctuations
 ponctuation = [",", ".", "!", ":", "?", ";"]
 
@@ -21,18 +27,24 @@ dico_list = {'dico1': Chirac1,
              'dico7': Mitterrand2,
              'dico8': Sarkozy}
 
-
+# Fonction 'list_of_files'
+# Liste les fichiers avec l'extension (.txt)
+# Retourne la liste des noms des fichiers correspondant aux critères
 def list_of_files(directory, extension):
     files_names = []
     for filename in os.listdir(directory):
         if filename.endswith(extension):
             files_names.append(filename)
     return files_names
+
 # Permet d'avoir la liste des fichiers
 directory = "./speeches"
 files_names = list_of_files(directory, 'txt')
 nb_de_fichier = len(files_names)
-#__________________________________________________________Nettoyage__________________________________________________________
+
+# Fonction 'cleaned'
+# Nettoie le contenu des fichiers .txt en effectuant plusieurs opérations
+# Ajoute les .txt nettoyés dans le fichier 'cleaned'
 def cleaned (files_names):
     for nom in files_names:
         # Ouvre les fichers .txt à nettoyer
@@ -97,19 +109,22 @@ def cleaned (files_names):
                     f2.write("\n")
     return
 
-#__________________________________________________________Parti pour la création de la matrice TF-IDF__________________________________________________________
-#TF
+# Fonction 'TF'
+# Calcule la fréquence d'apparition de chaque mot d'un .txt
+# Retourne le dictionnaire 'cptTF' contenant la fréquence de chaque mot
 def TF(contenu):
     cptTF = {}
     liste_mots = contenu.split()
     for mot in liste_mots:
-        if mot not in cptTF: # Calcul la fréquence TF de chaque mot
+        if mot not in cptTF: # Calcule de la fréquence TF de chaque mot
             cptTF[mot] = 1
         else:
             cptTF[mot] += 1
-    return cptTF # Return la fréquence de chaque mot
+    return cptTF # Retourne la fréquence de chaque mot
 
-#IDF
+# Fonction 'IDF'
+# Calcule le score IDF de chaque .txt
+# Retourne le dictionnaire 'cptIDF' contenant le score IDF de chaque mot
 def IDF(files_names):
     precptIDF = {}
     cptIDF = {}
@@ -122,11 +137,13 @@ def IDF(files_names):
                     precptIDF[mot] = 1
                 else:
                     precptIDF[mot] += 1
-            for mot, val in precptIDF.items(): # Calcul l'IDF de chaque mot
+            for mot, val in precptIDF.items(): # Calcule l'IDF de chaque mot
                 cptIDF[mot] = math.log((nb_de_fichier/val))
     return cptIDF
 
-#TF-IDF
+# Fonction 'TF_IDF'
+# Calcule la matrice TF-IDF avec les fonctions 'TF' et 'IDF'
+# Retourne la matrice contenant les valeurs TF-IDF de chaque mot du corpus
 def TF_IDF(files_name):
     cptIDF = IDF(files_name)
     prematrice_TF_IDF = []
@@ -135,31 +152,33 @@ def TF_IDF(files_name):
             contenu = f.read()
             cptTF = TF(contenu)
 
-            for mot in cptTF.keys(): # Calcul de TF_IDF pour chaque mot
+            for mot in cptTF.keys(): # Calcule du TF_IDF pour chaque mot
                 cptTF[mot] = round(cptIDF[mot] * cptTF[mot], 2 )
 
         for mot, val in cptTF.items():
             dico_list['dico{}'.format(i + 1)][mot] = val
 
         cellule_matrice = []
-        for mot, val in cptTF.items(): # Création de la prematrice TF IDF (nécessite une transposition)
-            cellule_matrice.append(val) # (perso) uniquement val
+        for mot, val in cptTF.items(): # Création de la prématrice TF IDF (nécessite une transposition)
+            cellule_matrice.append(val) # (Perso) uniquement val
         prematrice_TF_IDF.append(cellule_matrice)
 
-    matrice_TF_IDF = Transposition(prematrice_TF_IDF) # Transpose en utilisant la fonction créée
+    matrice_TF_IDF = Transposition(prematrice_TF_IDF) # Transposition en utilisant la fonction 'Transposition'
     return (matrice_TF_IDF, dico_list)
 
-#Transposition Matrice
-def Transposition(matrice): # Pour transposer une matrice nécessite nb ligne == nb colonne
+# Fonction 'Transposition'
+# Transpose la matrice retourné par la fonction 'TF_IDF'
+# Retourne la matrice transposée
+def Transposition(matrice): # Transposer une matrice nécessite nb ligne == nb colonne
     longeur_max = max(len(ligne) for ligne in matrice) # Longueur max des lignes + ajustement de la matrice
     matrice_ajustement = [ligne + [0] * (longeur_max - len(ligne)) for ligne in matrice]
     # Transpose la matrice
     transpo = [[matrice_ajustement[j][i] for j in range(len(matrice_ajustement))] for i in range(longeur_max)]
     return transpo
 
-#__________________________________________________________Generation de la question__________________________________________________________
-
-# Nous donne la question netoyer et nous renvoie la liste de mot qu'elle compose
+# Fonction 'clean_question'
+# Réalise la tokenisation de la question posée par l'utilisateur
+# Retourne la liste des mots nettoyés de la question posée par l'utilisateur
 def clean_question(question):
     L = list(question)
     if L [-1] != " " :
@@ -215,12 +234,14 @@ def clean_question(question):
             for ponct in ponctuation:
                 if ponct == lettre:
                     MOT += ''
-    return Q # Return la liste des mots de la question nettoy
+    return Q # Retourne la liste des mots de la question nettoyé
 
-# recherche des mot de la question dans le corpus
-def comparaison_question(question): # recherche des mot de la question dans le corpus
+# Fonction 'comparaison_question'
+# Recherche les mots de la question posée dans le corpus
+# Retourne la liste des mots de la question posée présents dans le corpus
+def comparaison_question(question): # Recherche les mots de la question dans le corpus
     question_comparer = []
-    corpus = [] # pour avoir tout le corpus
+    corpus = []
     for nom in files_names:
         with open ('./cleaned/{}'.format(nom),'r') as f:
             doc = f.read()
@@ -228,33 +249,38 @@ def comparaison_question(question): # recherche des mot de la question dans le c
             for mot in doc:
                 corpus.append(mot)
 
-    for mot in question : # chercher les mot de la question dans le corpuse et ressort les mot trouver
+    for mot in question : # Cherche les mots de la question dans le corpus et renvoi les mots trouvés
         if mot in corpus:
             question_comparer.append(mot)
     return question_comparer
 
+# Fonction 'matrice_pour_comparaison'
+# Retranspose la matrice pour une utilisation dans la fonction 'pertinence'
+# Retourne la matrice TF-IDF retransposée
 def matrice_pour_comparaison(matrice):
     nouvelle_matrice = Transposition(matrice)
     longeur_matrice = len(nouvelle_matrice[0])
     return nouvelle_matrice, longeur_matrice
 
+# Fonction 'question_TF_IDF'
+# Calcule le TF-IDF des mots de la question posée
+# Retourne le score TF-IDF des mots de la question posée
 def question_TF_IDF(question_comparer,longeur_new_matrice):
     IDF_corpus = IDF(files_names)
     TF_IDF_question = {}
-    # parti pour le TF de la question
+    # TF de la question
     for mot in question_comparer:
         if mot not in TF_IDF_question:
             TF_IDF_question[mot] = 1
         elif mot in TF_IDF_question:
             TF_IDF_question[mot] += 1
 
-    for mot in TF_IDF_question.keys(): # calcule TF IDF
+    for mot in TF_IDF_question.keys(): # Calcule du TF-IDF
         TF_IDF_question[mot] = TF_IDF_question[mot] * IDF_corpus[mot]
 
     vecteur_TF_IDF = []
-    cellule_vecteur = []
 
-    for mot,val in TF_IDF_question.items(): # met le calcule dans une liste en respectant le M = le nombre de col de la matrice TF IDF
+    for mot,val in TF_IDF_question.items(): # Le résultat dans une liste (M = le nombre de colonnes) de la matrice TF-IDF
         vecteur_TF_IDF.append(round(val,2))
 
     if len(vecteur_TF_IDF) < longeur_new_matrice:
@@ -262,24 +288,36 @@ def question_TF_IDF(question_comparer,longeur_new_matrice):
             vecteur_TF_IDF.append(0)
     return vecteur_TF_IDF, TF_IDF_question
 
+# Fonction 'produit_scalaire'
+# Calcule le produit scalaire de deux vecteurs
+# Retourne le produit scalaire des deux vecteurs
 def produit_scalaire(A,B): # tout est dans le nom
     somme_vecteur = 0
     for i in range(len(A)):
         somme_vecteur += A[i] * B[i]
-    return somme_vecteur
+    return somme_vecteur # Produit scalaire des deux vecteurs
 
-def norme_vecteur (A): # pareille
+# Fonction 'norme_vecteur'
+# Calcule la norme vectorielle des vecteurs de la fonction 'produit_scalaire'
+# Retourne la norme vectorielle
+def norme_vecteur (A): # Pareil
     somme = 0
     for i in range(len(A)):
         somme += A[i]**2
     norme = math.sqrt(somme)
-    return norme
+    return norme # Norme des deux vecteurs
 
-def similarite (A,B): #pareille
+# Fonction 'similarite'
+# Calcule la similarité entre les deux vecteurs
+# Retourne la similarité
+def similarite (A,B): # Pareil
     simil = produit_scalaire(A, B) / norme_vecteur(A) * norme_vecteur(B)
-    return simil
+    return simil # Similarité entre les deux vecteurs
 
-def pertinence(matrice,vecteur): # utilisation de la fonction précédente pour calculer le doc le plus pertinent
+# Fonction 'pertinence'
+#
+#
+def pertinence(matrice,vecteur): # Utilisation de la fonction 'similarite' pour calculer le document le plus pertinent
     docu = 0
     sim = 0
     for i in range (nb_de_fichier):
@@ -288,6 +326,9 @@ def pertinence(matrice,vecteur): # utilisation de la fonction précédente pour 
             docu = files_names[i]
     return sim, docu
 
+# Fonction 'MAX_TF_IDF'
+#
+#
 def MAX_TF_IDF(TFIDF_dico):
     X = 0
     for mot, val in TFIDF_dico.items():

@@ -1,3 +1,8 @@
+# "My first chatBot" - Projet semestriel TI101 (Programmation Python)
+# [L1 - BN]
+# KUANG William - CAUSSIMON Dorian
+# Fichier main.py : Contient le menu et permet l'appel des fonctionnalités réalisées dans function.py
+
 from fonction import *
 # Permet d'avoir la liste des fichiers
 directory = "./speeches"
