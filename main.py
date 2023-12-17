@@ -67,9 +67,11 @@ elif x == 4:
         print(ligne)
 '''
 
-
+new_matrice, lng = matrice_pour_comparaison(matrice_TF_IDF)
+print(lng)
 print("Posez une question :")
 question = str(input())
 Q = clean_question(question)
 QC = comparaison_question(Q)
-print(QC)
+TFIDF_Q = question_TF_IDF(QC)
+
