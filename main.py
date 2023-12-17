@@ -68,10 +68,10 @@ elif x == 4:
 '''
 
 new_matrice, lng = matrice_pour_comparaison(matrice_TF_IDF)
-print(lng)
 print("Posez une question :")
 question = str(input())
 Q = clean_question(question)
 QC = comparaison_question(Q)
-TFIDF_Q = question_TF_IDF(QC)
-
+TFIDFQ_veteur = question_TF_IDF(QC, lng)
+sim, doc = pertinence(matrice_TF_IDF, TFIDFQ_veteur)
+print(doc)

@@ -254,29 +254,35 @@ def question_TF_IDF(question_comparer,longeur_new_matrice):
     vecteur_TF_IDF = []
     cellule_vecteur = []
 
-    for mot,val in TF_IDF_question.items(): # met le calcule dans une liste en respectant le M = 8 = le nombre de col de la matrice TF IDF = le nb de document
-        cellule_vecteur.append(val) # (perso) uniquement val
-        if len(cellule_vecteur) == nb_de_fichier:
-            vecteur_TF_IDF.append(cellule_vecteur)
-            cellule_vecteur = []
-    vecteur_TF_IDF.append(cellule_vecteur)
+    for mot,val in TF_IDF_question.items(): # met le calcule dans une liste en respectant le M = le nombre de col de la matrice TF IDF
+        vecteur_TF_IDF.append(round(val,2))
 
-    # (perso) si besoin faire une verification par ligne des longeur pour etre acorder au nb colonne
+    if len(vecteur_TF_IDF) < longeur_new_matrice:
+        for w in range (longeur_new_matrice - len(vecteur_TF_IDF)):
+            vecteur_TF_IDF.append(0)
     return vecteur_TF_IDF
 
-def produit_scalaire(A,B):
+def produit_scalaire(A,B): # tout est dans le nom
     somme_vecteur = 0
-    for i, j in range (len(A),len(B)):
-        somme_vecteur += A[i] * B[j]
+    for i in range (len(A)):
+        somme_vecteur += A[i] * B[i]
     return somme_vecteur
 
-def norme_vecteur (A):
+def norme_vecteur (A): # pareille
     somme = 0
     for i in range(len(A)):
         somme += A[i]**2
     norme = math.sqrt(somme)
     return norme
 
-def similarite (A,B):
+def similarite (A,B):# pareille
     sim = produit_scalaire(A,B)/norme_vecteur(A)*norme_vecteur(B)
     return sim
+
+def pertinence(matrice,vecteur): # utilisation de la fonction précédente pour calculer le doc le plus pertinent
+    sim = 0
+    for i in range (nb_de_fichier):
+        if sim < similarite(matrice[i], vecteur):
+            sim = similarite(matrice[i], vecteur)
+            doc = files_names[i]
+    return sim, doc
