@@ -23,5 +23,5 @@ Instructions d'exécutions : Menu d'accès aux fonctionnalités
 2 - TF Term Frequency
 3 - IDF Inverse Document frequency
 4 - Matrice TF-IDF
-5 - Poser une questio
+5 - Poser une question
 ...
