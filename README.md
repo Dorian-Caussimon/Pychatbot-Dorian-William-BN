@@ -19,9 +19,9 @@ Fonctionalités principales :
 
 Instructions d'exécutions : Menu d'accès aux fonctionnalités
 -> Entrez le chiffre associé à la fonctionnalité :
-1 - clean files
-2 - TF Term Frequency
-3 - IDF Inverse Document frequency
-4 - Matrice TF-IDF
-5 - Poser une question
-...
+1 - 
+2 - 
+3 - 
+4 - 
+5 - 
+6 - 

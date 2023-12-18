@@ -343,7 +343,7 @@ def MAX_TF_IDF(TFIDF_dico):
             M = mot
     return M
 
-# Fonction 'MAX_TF_IDF'
+# Fonction 'reponse'
 #
 #
 def reponse (question,mot_importan_question,doc):

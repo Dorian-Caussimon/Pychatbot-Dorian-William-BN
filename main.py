@@ -22,12 +22,12 @@ while fin == 0:
           "3 - Les mots les plus répétés par un président \n"
           "4 - Qui a parlé de... \n"
           "5 - Accès au chatBot \n"
-          "6 - Sortir du programme")
+          "6 - Sortir du programme \n")
 
     while x <= 0 or x > 7:
-          x = int(input("Entrez la fonctionnalité désirée :"))
+          x = int(input("Entrez la fonctionnalité désirée : "))
           if x <= 0 or x > 7:
-                print("Cette fonctionnalité n'existe pas.")
+                print("Cette fonctionnalité n'existe pas. \n")
 
     if x == 1:
         mot_pas_important = []
@@ -50,15 +50,15 @@ while fin == 0:
         print(mot_important)
 
     elif x == 3:
-        print("1 : Chirac\n"
-              "2 : Chirac 2\n"
-              "3 : Giscard d'Estaing\n"
-              "4 : Hollande\n"
-              "5 : Macron\n"
-              "6 : Mitterand\n"
-              "7 : Mitterand\n"
-              "8 : Sarkozy")
-        X = int(input("Sélectionnez un président :"))
+        print("1 - Chirac \n"
+              "2 - Chirac 2 \n"
+              "3 - Giscard d'Estaing \n"
+              "4 - Hollande \n"
+              "5 - Macron \n"
+              "6 - Mitterand \n"
+              "7 - Mitterand \n"
+              "8 - Sarkozy \n")
+        X = int(input("Sélectionnez un président : "))
 
         with open("./cleaned/{}".format(files_names[x]))as f:
             M = TF(f.read())
