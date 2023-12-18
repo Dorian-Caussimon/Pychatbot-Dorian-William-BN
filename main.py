@@ -12,74 +12,84 @@ files_names = list_of_files(directory,'txt')
 cleaned(files_names)
 matrice_TF_IDF, dico_list = TF_IDF(files_names)
 
-'''
+
 # Menu d'accès aux fonctionnalités (Premier Dépôt)
-x = 0
-print("1 - clean files \n"
-      "2 - TF Term Frequency \n"
-      "3 - IDF Inverse Document frequency \n"
-      "4 - Matrice TF-IDF \n"
-      "5 - Poser une question \n")
-while x <= 0 or x > 5:
-      x = int(input("Enter the desired functionality number: "))
-      if x <= 0 or x > 5:
-            print("This functionality does not exist.")
+fin = 0
+while fin == 0:
+    x = 0
+    print("1 - mot les moins important du corpus \n"
+          "2 - mot avec le tf idf le plus élever \n"
+          "3 - mot les plus répété par un président  \n"
+          "4 - qui a parler de :  \n"
+          "5 - acces chat bot\n"
+          "6 - sortir du program")
 
-# Nettoyage des .txt
-if x == 1:
-      cleaned(files_names)
-      print("Files has been cleaned")
+    while x <= 0 or x > 7:
+          x = int(input("Entrer la fonctionalité désiré: "))
+          if x <= 0 or x > 7:
+                print("cette fonctionalité n'existe pas.")
 
-# Accès au TF des .txt
-elif x == 2:
-      print("Dictionary 1: Chirac #1 \n"
-            "Dictionary 2: Chirac #2 \n"
-            "Dictionary 3: Giscard d'Estaing \n"
-            "Dictionary 4: Hollande \n"
-            "Dictionary 5: Macron \n"
-            "Dictionary 6: Mitterand #1 \n"
-            "Dictionary 7: Mitterand #2 \n"
-            "Dictionary 8: Sarkozy \n")
-      d = 0
-      while d <= 0 or x > 8:
-            d = int(input("Enter the desired dictionary: "))
-            if d <= 0 or x > 8:
-                  print("This dictionary does not exist")
-            if d == 1:
-                  print(Chirac1)
-            elif d == 2:
-                  print(Chirac2)
-            elif d == 3:
-                  print(Giscard_dEstaing)
-            elif d == 4:
-                  print(Hollande)
-            elif d == 5:
-                  print(Macron)
-            elif d == 6:
-                  print(Mitterrand)
-            elif d == 7:
-                  print(Mitterrand2)
-            elif d == 8:
-                  print(Sarkozy)
+    if x == 1:
+        mot_pas_important = []
+        for i in range (1,len(files_names)+1):
+            dico = dico_list["dico{}".format(i)]
+            for mot, val in dico.items():
+                if val == 0:
+                    mot_pas_important.append(mot)
+        print(mot_pas_important)
 
-elif x == 3:
-    IDF = IDF(files_names)
-    for motidf, validf in IDF.items():
-        print("mot : {} \n score IDF : {} \n ".format(motidf,validf))
+    elif x == 2:
+        cpt = 0
+        mot_important = 0
+        for i in range(1,len(files_names)+1):
+            dico = dico_list["dico{}".format(i)]
+            for mot, val in dico.items():
+                if val >= cpt:
+                    cpt = val
+                    mot_important = mot
+        print(mot_important)
 
-elif x == 4:
-    for ligne in matrice_TF_IDF:
-        print(ligne)
-'''
+    elif x == 3:
+        print("1 : Chirac\n"
+              "2 : Chirac 2\n"
+              "3 : Giscard d'Estaing\n"
+              "4 : Hollande\n"
+              "5 : Macron\n"
+              "6 : Mitterand\n"
+              "7 : Mitterand\n"
+              "8 : Sarkozy")
+        X = int(input("sélectioner un président:"))
 
-new_matrice, lng = matrice_pour_comparaison(matrice_TF_IDF)
-print("Posez une question :")
-question = str(input())
-Q = clean_question(question)
-QC = comparaison_question(Q)
-TFIDFQ_veteur, TFIDFQ_dico = question_TF_IDF(QC, lng)
-sim,doc = pertinence(new_matrice, TFIDFQ_veteur)
-mot_retourner = MAX_TF_IDF(TFIDFQ_dico)
+        with open("./cleaned/{}".format(files_names[x]))as f:
+            M = TF(f.read())
+            Z = 0
+            for mot, val in M.items():
+                if val > Z :
+                    Mot_repete = mot
+        print("le mot le plus répété est : {}".format(Mot_repete))
 
-print(mot_retourner)
-print(doc)
+    elif x == 4:
+        print('donner un mot a rechercher: ')
+        mot_recherche = str(input())
+        premier = []
+        for D in files_names:
+            with open('./cleaned/{}'.format(D),"r") as d:
+                texte = d.readlines()
+                for ligne in texte:
+                    if (" {} ".format(mot_recherche) or '{} '.format(mot_recherche) or ' {}'.format(mot_recherche)) in ligne:
+                        premier.append(D)
+        premier = set(premier)
+        print('les premier president a avoir parler de {} est {}'.format(mot_recherche,premier))
+    elif x == 5:
+        new_matrice, lng = matrice_pour_comparaison(matrice_TF_IDF)
+        print("Posez une question :")
+        question = str(input())
+        Q = clean_question(question)
+        QC = comparaison_question(Q)
+        TFIDFQ_veteur, TFIDFQ_dico = question_TF_IDF(QC, lng)
+        sim,doc = pertinence(new_matrice, TFIDFQ_veteur)
+        mot_retourner = MAX_TF_IDF(TFIDFQ_dico)
+        print(doc)
+        print(reponse(question,mot_retourner,doc))
+    elif x == 6:
+        fin = 1
