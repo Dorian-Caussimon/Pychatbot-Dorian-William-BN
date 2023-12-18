@@ -321,8 +321,8 @@ def similarite (A,B): #pareille
     return simil # Similarité entre les deux vecteurs
 
 # Fonction 'pertinence'
-#
-#
+# Relèves les mots les plus pertinents par rapport à la question (Utilisateur)
+# Retourne la liste des termes les plus pertinents
 def pertinence(matrice,vecteur): # Utilisation de la fonction 'similarite' pour calculer le document le plus pertinent
     docu = 0
     sim = 0
@@ -333,8 +333,8 @@ def pertinence(matrice,vecteur): # Utilisation de la fonction 'similarite' pour 
     return sim, docu
 
 # Fonction 'MAX_TF_IDF'
-#
-#
+# Trouve le mot le plus important de la question (Utilisateur)
+# Retourne le mot le plus important
 def MAX_TF_IDF(TFIDF_dico):
     X = 0
     for mot, val in TFIDF_dico.items():
@@ -344,8 +344,8 @@ def MAX_TF_IDF(TFIDF_dico):
     return M
 
 # Fonction 'reponse'
-#
-#
+# Identifie le terme interrogatif de la question (Utilisateur) et répond en conséquence
+# Retourne la réponse adaptée à la question (Utilisateur)
 def reponse (question,mot_importan_question,doc):
     # Liste de propositions non exhaustives
     start = 0

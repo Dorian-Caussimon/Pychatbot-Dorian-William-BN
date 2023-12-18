@@ -82,7 +82,7 @@ while fin == 0:
         print('Le premier president à avoir parlé de {} est {}'.format(mot_recherche,premier))
     elif x == 5:
         new_matrice, lng = matrice_pour_comparaison(matrice_TF_IDF)
-        print("Posez une question :")
+        print("Posez une question : ")
         question = str(input())
         Q = clean_question(question)
         QC = comparaison_question(Q)
