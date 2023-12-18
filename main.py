@@ -13,21 +13,21 @@ cleaned(files_names)
 matrice_TF_IDF, dico_list = TF_IDF(files_names)
 
 
-# Menu d'accès aux fonctionnalités (Premier Dépôt)
+# Menu d'accès aux fonctionnalités
 fin = 0
 while fin == 0:
     x = 0
-    print("1 - mot les moins important du corpus \n"
-          "2 - mot avec le tf idf le plus élever \n"
-          "3 - mot les plus répété par un président  \n"
-          "4 - qui a parler de :  \n"
-          "5 - acces chat bot\n"
-          "6 - sortir du program")
+    print("1 - Les mots les moins important du corpus \n"
+          "2 - Les mots avec le TF-IDF le plus élevé \n"
+          "3 - Les mots les plus répétés par un président \n"
+          "4 - Qui a parlé de... \n"
+          "5 - Accès au chatBot \n"
+          "6 - Sortir du programme")
 
     while x <= 0 or x > 7:
-          x = int(input("Entrer la fonctionalité désiré: "))
+          x = int(input("Entrez la fonctionnalité désirée :"))
           if x <= 0 or x > 7:
-                print("cette fonctionalité n'existe pas.")
+                print("Cette fonctionnalité n'existe pas.")
 
     if x == 1:
         mot_pas_important = []
@@ -58,7 +58,7 @@ while fin == 0:
               "6 : Mitterand\n"
               "7 : Mitterand\n"
               "8 : Sarkozy")
-        X = int(input("sélectioner un président:"))
+        X = int(input("Sélectionnez un président :"))
 
         with open("./cleaned/{}".format(files_names[x]))as f:
             M = TF(f.read())
@@ -66,10 +66,10 @@ while fin == 0:
             for mot, val in M.items():
                 if val > Z :
                     Mot_repete = mot
-        print("le mot le plus répété est : {}".format(Mot_repete))
+        print("Le mot le plus répété est : {}".format(Mot_repete))
 
     elif x == 4:
-        print('donner un mot a rechercher: ')
+        print('Donnez un mot à rechercher : ')
         mot_recherche = str(input())
         premier = []
         for D in files_names:
@@ -79,7 +79,7 @@ while fin == 0:
                     if (" {} ".format(mot_recherche) or '{} '.format(mot_recherche) or ' {}'.format(mot_recherche)) in ligne:
                         premier.append(D)
         premier = set(premier)
-        print('les premier president a avoir parler de {} est {}'.format(mot_recherche,premier))
+        print('Le premier president à avoir parlé de {} est {}'.format(mot_recherche,premier))
     elif x == 5:
         new_matrice, lng = matrice_pour_comparaison(matrice_TF_IDF)
         print("Posez une question :")
