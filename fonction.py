@@ -371,3 +371,5 @@ def reponse (question,mot_importan_question,doc):
 
     rep = ("{} {}".format(start, fin_reponse))
     return rep
+
+# STOP
