@@ -351,8 +351,11 @@ def reponse (question,mot_importan_question,doc):
     start = 0
     fin_reponse = 0
     question_starters = {
+        "comment" : "Après analyse, ",
         "Comment": "Après analyse, ",
+        "pourquoi": "Car, ",
         "Pourquoi": "Car, ",
+        "peux-tu": "Oui, bien sûr!",
         "Peux-tu": "Oui, bien sûr!"
     }
     mot = question_starters.keys()
