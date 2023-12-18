@@ -39,17 +39,14 @@ while fin == 0:
         print(mot_pas_important)
 
     elif x == 2:
-        O = ""
-        cpt = 0
         mot_important = 0
-        for val in files_names:
-            with open('./cleaned/{}'.format(),'r',) as g:
-                O += g.read()
-        P = TF(O)
-        for mot, val in P.items():
-            if val > cpt:
-                cpt = val
-                mot_impotant = mot
+        cpt = 0
+        for i in range (1,len(files_names)+1):
+            dico = dico_list["dico{}".format(i)]
+            for mot, val in dico.items():
+                if val > cpt:
+                    cpt = val
+                    mot_important = mot
         print(mot_important)
 
     elif x == 3:
