@@ -4,6 +4,18 @@ Groupe L1 - BN
 
 Dépôt Git : https://github.com/Tron626/Pychatbot-Dorian-William-BN
 
+Lis moi ! 
+Salutation ! 
+Le projet informatique semestriel TI101 de programmation en python est la 
+conception d'un chatBot capable de répondre aux questions qui lui sont
+posées. Nous avons développé les différentes fonctionnalités qui vous 
+sont proposées ci-dessous.
+Veuillez s'il vous plaît suivre les instructions d'execution pour 
+l'utilisation du menu d'accès.
+
+(Conseil) Testez la question : 
+"La crise migratoire est elle liée à la crise climatique ?"
+
 Fonctionalités : 
 
   - Nettoyage des fichiers .txt
