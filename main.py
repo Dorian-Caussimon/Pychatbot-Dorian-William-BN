@@ -96,3 +96,5 @@ while fin == 0:
         print(reponse(question,mot_retourner,doc))
     elif x == 6:
         fin = 1 # permet de stoper le programe
+
+# STOP
