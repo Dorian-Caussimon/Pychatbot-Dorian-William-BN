@@ -368,6 +368,8 @@ def reponse (question,mot_importan_question,doc):
         for ligne in L:
             if " {}".format(mot_importan_question) in str(ligne):
                 fin_reponse = str(ligne)
+    if start == 0:
+        start = ''
 
     rep = ("{} {}".format(start, fin_reponse))
     return rep
