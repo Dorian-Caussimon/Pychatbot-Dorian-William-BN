@@ -79,6 +79,7 @@ while fin == 0:
                     if (" {} ".format(mot_recherche) or '{} '.format(mot_recherche) or ' {}'.format(mot_recherche)) in ligne:
                         premier.append(D)
         premier = set(premier) # supprimer les doublon
+
         print('Le premier president à avoir parlé de {} est {}'.format(mot_recherche,premier))
     elif x == 5:
         new_matrice, lng = matrice_pour_comparaison(matrice_TF_IDF)
@@ -92,6 +93,4 @@ while fin == 0:
         print(doc)
         print(reponse(question,mot_retourner,doc))
     elif x == 6:
-        fin = 1
-
-# STOP
+        fin = 1 # permet de stoper le programe
