@@ -59,13 +59,13 @@ while fin == 0:
               "7 - Mitterand \n"
               "8 - Sarkozy \n")
         X = int(input("Sélectionnez un président : "))
-
-        with open("./cleaned/{}".format(files_names[x]))as f:
-            M = TF(f.read())
-            Z = 0
-            for mot, val in M.items():
-                if val > Z :
-                    Mot_repete = mot
+        Mot_repete = 0
+        cpt = 0
+        dico = dico_list["dico{}".format(X)]
+        for mot, val in dico.items():
+            if val > cpt:
+                cpt = val
+                Mot_repete = mot
         print("Le mot le plus répété est : {}".format(Mot_repete))
 
     elif x == 4:
