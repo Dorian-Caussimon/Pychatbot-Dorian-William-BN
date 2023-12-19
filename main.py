@@ -39,15 +39,17 @@ while fin == 0:
         print(mot_pas_important)
 
     elif x == 2:
-        mot_important = 0
+        mot_important = []
         cpt = 0
         for i in range (1,len(files_names)+1):
             dico = dico_list["dico{}".format(i)]
             for mot, val in dico.items():
                 if val > cpt:
                     cpt = val
-                    mot_important = mot
-        print(mot_important)
+            for mot, val in dico.items():
+                if val == cpt:
+                    mot_important.append(mot)
+        print("les mot avec le TF-IDF sont {}".format(mot_important))
 
     elif x == 3:
         print("1 - Chirac \n"
