@@ -78,7 +78,7 @@ while fin == 0:
                 for ligne in texte:
                     if (" {} ".format(mot_recherche) or '{} '.format(mot_recherche) or ' {}'.format(mot_recherche)) in ligne:
                         premier.append(D)
-        premier = set(premier)
+        premier = set(premier) # supprimer les doublon
         print('Le premier president à avoir parlé de {} est {}'.format(mot_recherche,premier))
     elif x == 5:
         new_matrice, lng = matrice_pour_comparaison(matrice_TF_IDF)
